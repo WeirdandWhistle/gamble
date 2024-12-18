@@ -13,13 +13,22 @@ public class panel extends JPanel implements Runnable {
 	public final int height = 500;
 	public final int gameTicks = 60;
 	
+	
+	
+	
 	public Dimension window = new Dimension(height,width);
 	public Thread gameThread;
+	public MouseHandler mh = new MouseHandler();
+	public ui ui = new ui(this);
+	public StateMec sm = new StateMec();
 	
 	public panel() {
 		
 		this.setPreferredSize(window);
 		this.requestFocusInWindow();
+		
+		this.startGameThread();
+		sm.startGame();
 		
 	}
 	
@@ -35,7 +44,7 @@ public class panel extends JPanel implements Runnable {
 	double nextdrawTime = System.nanoTime() + drawInterval;
 			
 	while(gameThread != null) {
-		}
+		
 	update();
 
 	try {
@@ -54,8 +63,12 @@ public class panel extends JPanel implements Runnable {
 				
 			e.printStackTrace();
 		}
+		}
 	}
 	void update() {
+		this.repaint();
+		
+		
 		
 	}
 	public void paint(Graphics g) {
@@ -65,8 +78,12 @@ public class panel extends JPanel implements Runnable {
 	super.paint(g);
 		
 	Graphics2D g2d = (Graphics2D) g;
-	g2d.setColor(Color.black);
+	g2d.setColor(Color.white);
 	g2d.fillRect(0, 0,width,height);
+	
+	ui.renderUI(g2d);
+	
+	
 		
 	}
 }

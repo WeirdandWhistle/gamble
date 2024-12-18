@@ -14,6 +14,8 @@ public class frame extends JFrame {
 		this.setVisible(true);
 		this.setLocation(500,100);
 		this.setTitle("BET BIG, LOOSE BIGGER");
+		this.addMouseListener(panel.mh);
+		this.addMouseMotionListener(panel.mh);
 		
 		this.add(panel);
 		this.pack();
