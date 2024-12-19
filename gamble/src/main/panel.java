@@ -12,9 +12,7 @@ public class panel extends JPanel implements Runnable {
 	public final int width = 500;
 	public final int height = 500;
 	public final int gameTicks = 60;
-	
-	
-	
+	public final String name = "Super Bets";
 	
 	public Dimension window = new Dimension(height,width);
 	public Thread gameThread;

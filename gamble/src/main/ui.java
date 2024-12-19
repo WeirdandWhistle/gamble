@@ -4,9 +4,9 @@ package main;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
+import java.awt.Stroke;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
@@ -51,7 +51,15 @@ public class ui {
 				startButton = null;
 			}
 			if(currentState == p.sm.menuState) {
-				
+				button tradGames = new button(p.mh,new Rectangle(100,200,300,50),"OG Games");
+				but[0] = tradGames;
+				tradGames = null;
+				button newExp = new button(p.mh, new Rectangle(100,260,300,50), "New Games");
+				but[1] = newExp;
+				newExp = null;
+				button wallet = new button(p.mh, new Rectangle(100,320,300,50), "Wallet");
+				but[2] = wallet;
+				wallet = null;
 			}
 		}
 		if(currentState == p.sm.startState) {
@@ -64,8 +72,17 @@ public class ui {
 	}	
 	public void drawMainMenu() {
 		
-		g2d.setColor(new Color(100,100,100));
+		g2d.setColor(new Color(10,10,30));
 		g2d.fillRect(0, 0, p.width, p.height);
+		
+		g2d.setColor(Color.gray);
+		
+		this.drawRoundedButton(but[0],this.SansSerif40);
+		this.drawRoundedButton(but[1],this.SansSerif40);
+		this.drawRoundedButton(but[2],this.SansSerif40);
+		
+		g2d.setFont(SansSerif80);
+		g2d.drawString(p.name + '!',50,100);
 		
 	}
 	public void drawStartState() {
@@ -89,6 +106,22 @@ public class ui {
 			
 		}
 		
+	}
+	public void drawRoundedButton(button but, Font font) {
+		if(but.entered()) {
+			g2d.setStroke(new BasicStroke(3));
+		}
+		g2d.drawRoundRect(but.body.x, but.body.y, but.body.width, but.body.height, 50, 50);
+		g2d.setStroke(new BasicStroke(1));
+		
+		g2d.setFont(font);
+		g2d.drawString(but.text, this.getXForCenteredTextRect(but.text, but.body.width) + but.body.x, but.body.y + this.GetHeightOfString(but.text)-10);
+	}
+	public int getXForCenteredTextRect(String text, int width) {
+		int length = GetWidthOfString(text);
+		int x = width/2 - length/2;
+		return x;
+				
 	}
 	public int getXForCenteredText(String text) {
 		int length = GetWidthOfString(text);
