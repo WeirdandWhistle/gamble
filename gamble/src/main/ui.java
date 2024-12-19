@@ -61,6 +61,9 @@ public class ui {
 				but[2] = wallet;
 				wallet = null;
 			}
+			if(currentState == p.sm.walletState) {
+				
+			}
 		}
 		if(currentState == p.sm.startState) {
 			drawStartState();
@@ -68,8 +71,15 @@ public class ui {
 		if(currentState == p.sm.menuState) {
 			drawMainMenu();
 		}
+		if(currentState == p.sm.walletState) {
+			drawWallet();
+		}
 		prevState = currentState;
 	}	
+	public void drawWallet() {
+		g2d.setColor(new Color(100,10,30));
+		g2d.fillRect(0, 0, p.width, p.height);
+	}
 	public void drawMainMenu() {
 		
 		g2d.setColor(new Color(10,10,30));
@@ -84,6 +94,11 @@ public class ui {
 		g2d.setFont(SansSerif80);
 		g2d.drawString(p.name + '!',50,100);
 		
+//		System.out.println("but2 clicked: " + but[2].clicked());
+		
+		if(but[0].clicked()) {}
+		else if(but[1].clicked()) {}
+		else if(but[2].clicked()) {p.sm.gameState = p.sm.walletState;}
 	}
 	public void drawStartState() {
 		

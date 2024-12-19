@@ -6,6 +6,7 @@ public class StateMec {
 	public final int startState = 1;
 	public final int menuState = 2;
 	public final int diceState = 3;
+	public final int walletState = 4;
 	public int gameState = loadState;
 	
 	public StateMec() {
