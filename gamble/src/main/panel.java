@@ -16,9 +16,10 @@ public class panel extends JPanel implements Runnable {
 	
 	public Dimension window = new Dimension(height,width);
 	public Thread gameThread;
-	public MouseHandler mh = new MouseHandler();
+	public MouseHandler mh = new MouseHandler(this);
 	public ui ui = new ui(this);
 	public StateMec sm = new StateMec();
+	public player p = new player(this);
 	
 	public panel() {
 		

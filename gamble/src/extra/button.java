@@ -1,6 +1,6 @@
 package extra;
 
-import java.awt.Point;
+
 import java.awt.Rectangle;
 
 import main.MouseHandler;
@@ -10,6 +10,7 @@ public class button{
 	public MouseHandler mh;
 	public Rectangle body;
 	public String text;
+	
 	private int clickDif = 0;
 	
 	public button(MouseHandler mh, Rectangle body, String text) {
@@ -18,11 +19,21 @@ public class button{
 		this.body = body;
 		this.text = text;
 		
+		
 	}
 	public boolean entered() {
 		
 		if(mh.m != null) {
-		return body.contains(mh.m);
+			if(body.contains(mh.m)) {
+//				if(cursor != -1) {
+//					mh.p.setCursor(new Cursor(cursor));
+//				}
+				return true;
+			}
+			else {
+//				mh.p.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+				return false;
+			}
 		}else return false;
 	}
 	public boolean clicked() {

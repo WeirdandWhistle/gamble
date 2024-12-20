@@ -3,15 +3,16 @@ package main;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
-import java.awt.Stroke;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+import extra.SpriteSheet;
 import extra.UTool;
 import extra.button;
 
@@ -22,6 +23,9 @@ public class ui {
 	public int prevState = 0;
 	public int currentState;
 	public Font terminal,SansSerif40,SansSerif80;
+	public BufferedImage iconsImg;
+	public SpriteSheet icons;
+	public BufferedImage backIcon;
 	
 
 	public button[] but = new button[10];
@@ -34,11 +38,17 @@ public class ui {
 		terminal = new Font("Terminal",Font.PLAIN,20);
 		SansSerif40 = new Font("SansSerif",Font.PLAIN,40);
 		SansSerif80 = new Font("SansSerif",Font.PLAIN,80);
+		iconsImg = setup("/buttons/icons.png",64,64);
+		icons = new SpriteSheet(iconsImg);
+		backIcon = icons.getSprite(0, 0,16,16);
+		
+		
 		
 //		currentState = panel.sm.gameState;
 		
 	}
 	public void renderUI(Graphics2D g2d) {
+//		p.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
 		currentState = p.sm.gameState;
 		this.g2d = g2d;
 //		System.out.println("debug");
@@ -62,7 +72,8 @@ public class ui {
 				wallet = null;
 			}
 			if(currentState == p.sm.walletState) {
-				
+				button backButton = new button(p.mh,new Rectangle(0,0,48,48),null);
+				but[0] = backButton;
 			}
 		}
 		if(currentState == p.sm.startState) {
@@ -77,8 +88,19 @@ public class ui {
 		prevState = currentState;
 	}	
 	public void drawWallet() {
-		g2d.setColor(new Color(100,10,30));
+		g2d.setColor(new Color(10,10,30));
 		g2d.fillRect(0, 0, p.width, p.height);
+		
+		g2d.setColor(Color.gray);
+		
+		g2d.setFont(this.SansSerif40);
+		g2d.drawString("Balance: " + String.valueOf(p.p.money),125,50);
+		
+		g2d.drawImage(backIcon,but[0].body.x,but[0].body.y,but[0].body.width,but[0].body.height,null);
+		p.setCursor(but[0].entered() ? new Cursor(Cursor.HAND_CURSOR): new Cursor(Cursor.DEFAULT_CURSOR));
+		if(but[0].clicked()) {
+			p.sm.gameState = p.sm.menuState;
+		}
 	}
 	public void drawMainMenu() {
 		
@@ -97,8 +119,8 @@ public class ui {
 //		System.out.println("but2 clicked: " + but[2].clicked());
 		
 		if(but[0].clicked()) {}
-		else if(but[1].clicked()) {}
-		else if(but[2].clicked()) {p.sm.gameState = p.sm.walletState;}
+		if(but[1].clicked()) {}
+		if(but[2].clicked()) {p.sm.gameState = p.sm.walletState;}
 	}
 	public void drawStartState() {
 		

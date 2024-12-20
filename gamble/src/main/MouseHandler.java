@@ -18,11 +18,12 @@ public class MouseHandler implements MouseMotionListener, MouseListener{
 	public boolean clicked;
 	public final int offsetX = 8;
 	public final int offsetY = 31;
+	public panel p;
 //	public Point offset = new Point(offsetX,offsetY);
 	
 	
-	public MouseHandler() {
-		
+	public MouseHandler(panel p) {
+		this.p = p;
 	}
 
 	@Override
