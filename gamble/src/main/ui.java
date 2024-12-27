@@ -6,6 +6,7 @@ import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Font;
 import java.awt.Graphics2D;
+import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -15,6 +16,7 @@ import javax.imageio.ImageIO;
 import extra.SpriteSheet;
 import extra.UTool;
 import extra.button;
+import extra.slider;
 
 public class ui {
 	
@@ -29,6 +31,7 @@ public class ui {
 	
 
 	public button[] but = new button[10];
+	public slider[] slider = new slider[5];
 	
 	
 	public ui(panel p) {
@@ -48,6 +51,11 @@ public class ui {
 		
 	}
 	public void renderUI(Graphics2D g2d) {
+		
+		//TODO: make a requsting cursor method to orginize cursors
+		
+		//TODO: make slider work
+		
 //		p.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
 		currentState = p.sm.gameState;
 		this.g2d = g2d;
@@ -55,6 +63,7 @@ public class ui {
 //		System.out.println(this.currentState);
 		
 		if(prevState != currentState) {
+			p.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
 			if(currentState == p.sm.startState) {
 				button startButton  = new button(p.mh, new Rectangle(50,(int)((p.height/2)-50-20),(int)(p.width-100),100),"start");
 				but[0] = startButton;
@@ -74,6 +83,10 @@ public class ui {
 			if(currentState == p.sm.walletState) {
 				button backButton = new button(p.mh,new Rectangle(0,0,48,48),null);
 				but[0] = backButton;
+				
+				slider moneySlider = new slider(p.mh,new Point(100,100),300,5);
+				slider[0] = moneySlider;
+				moneySlider = null;
 			}
 		}
 		if(currentState == p.sm.startState) {
@@ -101,6 +114,9 @@ public class ui {
 		if(but[0].clicked()) {
 			p.sm.gameState = p.sm.menuState;
 		}
+		
+		slider[0].drawSlider(g2d);
+		
 	}
 	public void drawMainMenu() {
 		

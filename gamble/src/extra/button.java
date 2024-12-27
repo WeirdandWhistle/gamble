@@ -12,6 +12,9 @@ public class button{
 	public String text;
 	
 	private int clickDif = 0;
+	private boolean held = false;
+	private boolean prevClicked = false;
+	private int firstClick = 0;
 	
 	public button(MouseHandler mh, Rectangle body, String text) {
 		
@@ -50,11 +53,35 @@ public class button{
 //		System.out.println("entered: "+entered()+text);
 		if(entered() && clicked) {
 //			System.out.println("debug 2");
+			prevClicked = clicked;
 			return true;
 		}
 		else {
+			
+			prevClicked = clicked;
+			
 			clickDif = 0;
 			return false;
 		}
+	}
+	public boolean held() {
+		if(firstClick != 1) {
+		firstClick = this.clicked()?1:0;
+//		System.out.println("debug 3");
+		}
+		
+		if((mh.held != null)) {
+//			System.out.println("debug 4");
+			if(firstClick == 1) {
+//				System.out.println("debug 5");
+				return true;
+			}
+			else {
+//				System.out.println("debug 6");
+				firstClick = -1;
+			}
+		}
+		firstClick = -1;
+		return false;
 	}
 }
