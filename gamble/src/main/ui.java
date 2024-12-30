@@ -10,6 +10,9 @@ import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 import javax.imageio.ImageIO;
 
@@ -32,6 +35,8 @@ public class ui {
 
 	public button[] but = new button[10];
 	public slider[] slider = new slider[5];
+	
+	public ArrayList<int[]> CursorReq = new ArrayList<>();
 	
 	
 	public ui(panel p) {
@@ -98,6 +103,10 @@ public class ui {
 		if(currentState == p.sm.walletState) {
 			drawWallet();
 		}
+		
+		this.ReqCusor(Cursor.DEFAULT_CURSOR, 1);
+		p.setCursor(new Cursor(this.selectCursor()));
+		
 		prevState = currentState;
 	}	
 	public void drawWallet() {
@@ -110,7 +119,6 @@ public class ui {
 		g2d.drawString("Balance: " + String.valueOf(p.p.money),125,50);
 		
 		g2d.drawImage(backIcon,but[0].body.x,but[0].body.y,but[0].body.width,but[0].body.height,null);
-		p.setCursor(but[0].entered() ? new Cursor(Cursor.HAND_CURSOR): new Cursor(Cursor.DEFAULT_CURSOR));
 		if(but[0].clicked()) {
 			p.sm.gameState = p.sm.menuState;
 		}
@@ -160,15 +168,71 @@ public class ui {
 		}
 		
 	}
+	public void ReqCusor(int reqCursor, int priority) {
+		
+		int[] x = {priority,reqCursor};
+		
+		this.CursorReq.add(x);
+		
+	}
+	public int selectCursor() {
+		//**1(biggest priority) 2(selected Cursor) 3(how many times priority is repeated)**\\
+		int MaxPri[] = {0,0,0};
+		
+		ArrayList<Integer> index = new ArrayList<>();
+		
+		for(int i = 0; i <= CursorReq.size() - 1;i++) {
+			int[] x = CursorReq.get(i);
+			if(x[0] > MaxPri[0]) {
+				MaxPri[1] = x[1];
+				MaxPri[2] = 0;
+				index.clear();
+			}
+			if(x[0] == MaxPri[0]) {
+				MaxPri[2]++;
+				index.add(i);
+			}
+		}
+		if(MaxPri[2] == 1) {
+			return CursorReq.get(MaxPri[2])[1];
+		}
+		else {
+			HashMap<Integer, Integer> polls = new HashMap<>();
+			ArrayList<Integer> canidents = new ArrayList<>();
+			
+			for(int i = 0; i <= MaxPri[2] - 1; i++) {
+				int x = 0;
+				if(polls.get(CursorReq.get(index.get(i))[1]) != null) {
+					x = polls.get(CursorReq.get(index.get(i))[1]);
+					canidents.add(x);
+					x++;
+				}
+				polls.put(CursorReq.get(index.get(i))[1], x);
+			}
+			int leader = 0;
+			for(int i = 0; i <= canidents.size()-1;i++) {
+				if(polls.get(canidents.get(i)) > leader) {
+					leader = polls.get(i);
+				}
+			}
+			return leader;
+		}
+	}
 	public void drawRoundedButton(button but, Font font) {
 		if(but.entered()) {
 			g2d.setStroke(new BasicStroke(3));
+			this.ReqCusor(Cursor.HAND_CURSOR, 5);
+		}
+		else {
+			this.ReqCusor(Cursor.DEFAULT_CURSOR, 1);
 		}
 		g2d.drawRoundRect(but.body.x, but.body.y, but.body.width, but.body.height, 50, 50);
 		g2d.setStroke(new BasicStroke(1));
 		
 		g2d.setFont(font);
 		g2d.drawString(but.text, this.getXForCenteredTextRect(but.text, but.body.width) + but.body.x, but.body.y + this.GetHeightOfString(but.text)-10);
+		
+		
 	}
 	public int getXForCenteredTextRect(String text, int width) {
 		int length = GetWidthOfString(text);
