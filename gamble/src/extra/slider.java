@@ -72,7 +72,7 @@ public class slider {
 		
 		prevX = x;
 	}
-	public double getValue() {
+	public int getValue() {
 		
 		double X = tool.body.x - (start.x - (stroke*2));
 //		
@@ -84,11 +84,11 @@ public class slider {
 		
 		value = X/width;
 		
-		value = Math.round(value * 100.0) / 100.0;
-		
 		value = Math.clamp(value, 0, 1);
 		
-		return value;
+		value = (int)Math.round(value * 100.0);
+		
+		return (int)value;
 		
 		
 	}

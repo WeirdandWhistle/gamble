@@ -53,14 +53,14 @@ public class button{
 //		System.out.println("entered: "+entered()+text);
 		if(entered() && clicked) {
 //			System.out.println("debug 2");
-			prevClicked = clicked;
+//			prevClicked = clicked;
 			return true;
 		}
 		else {
 			
-			prevClicked = clicked;
+//			prevClicked = clicked;
 			
-			clickDif = 0;
+//			clickDif = 0;
 			return false;
 		}
 	}

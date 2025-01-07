@@ -88,10 +88,14 @@ public class ui {
 			if(currentState == p.sm.walletState) {
 				button backButton = new button(p.mh,new Rectangle(0,0,48,48),null);
 				but[0] = backButton;
+				button add = new button(p.mh,new Rectangle(150,220,200,50),"Add");
+				but[1] = add;
 				
-				slider moneySlider = new slider(p.mh,new Point(100,100),300,5);
+				slider moneySlider = new slider(p.mh,new Point(100,200),300,5);
 				slider[0] = moneySlider;
 				moneySlider = null;
+				backButton=null;
+				add = null;
 			}
 		}
 		if(currentState == p.sm.startState) {
@@ -103,9 +107,10 @@ public class ui {
 		if(currentState == p.sm.walletState) {
 			drawWallet();
 		}
-		
-		this.ReqCusor(Cursor.DEFAULT_CURSOR, 1);
-		p.setCursor(new Cursor(this.selectCursor()));
+//		
+//		this.ReqCusor(Cursor.DEFAULT_CURSOR, 1);
+//		p.setCursor(new Cursor(this.selectCursor()));
+//		CursorReq.clear();
 		
 		prevState = currentState;
 	}	
@@ -117,6 +122,14 @@ public class ui {
 		
 		g2d.setFont(this.SansSerif40);
 		g2d.drawString("Balance: " + String.valueOf(p.p.money),125,50);
+		
+		g2d.drawString("Add: " + String.valueOf(slider[0].getValue()), this.getXForCenteredText("Add: " + String.valueOf(slider[0].getValue())), 175);
+		
+		this.drawRoundedButton(but[1], SansSerif40);
+		
+		if(but[1].clicked()) {
+			p.p.money += slider[0].getValue();
+		}
 		
 		g2d.drawImage(backIcon,but[0].body.x,but[0].body.y,but[0].body.width,but[0].body.height,null);
 		if(but[0].clicked()) {
@@ -194,7 +207,7 @@ public class ui {
 			}
 		}
 		if(MaxPri[2] == 1) {
-			return CursorReq.get(MaxPri[2])[1];
+			return CursorReq.get(index.get(1))[1];
 		}
 		else {
 			HashMap<Integer, Integer> polls = new HashMap<>();
@@ -204,8 +217,11 @@ public class ui {
 				int x = 0;
 				if(polls.get(CursorReq.get(index.get(i))[1]) != null) {
 					x = polls.get(CursorReq.get(index.get(i))[1]);
-					canidents.add(x);
+					
 					x++;
+				}
+				else {
+					canidents.add(CursorReq.get(index.get(i))[1]);
 				}
 				polls.put(CursorReq.get(index.get(i))[1], x);
 			}
@@ -221,10 +237,10 @@ public class ui {
 	public void drawRoundedButton(button but, Font font) {
 		if(but.entered()) {
 			g2d.setStroke(new BasicStroke(3));
-			this.ReqCusor(Cursor.HAND_CURSOR, 5);
+//			this.ReqCusor(Cursor.HAND_CURSOR, 2);
 		}
 		else {
-			this.ReqCusor(Cursor.DEFAULT_CURSOR, 1);
+//			this.ReqCusor(Cursor.DEFAULT_CURSOR, 1);
 		}
 		g2d.drawRoundRect(but.body.x, but.body.y, but.body.width, but.body.height, 50, 50);
 		g2d.setStroke(new BasicStroke(1));

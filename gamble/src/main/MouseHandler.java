@@ -6,7 +6,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
-public class MouseHandler implements MouseMotionListener, MouseListener{
+public class MouseHandler implements MouseMotionListener, MouseListener {
 	
 	public int x;
 	public int y;
@@ -32,7 +32,7 @@ public class MouseHandler implements MouseMotionListener, MouseListener{
 		held = e.getPoint();
 		
 		m.move(e.getX() - offsetX,e.getY() - offsetY);
-		
+//		System.out.println("debug 3");
 	}
 
 	@Override
@@ -50,7 +50,7 @@ public class MouseHandler implements MouseMotionListener, MouseListener{
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		
-//		clicked = true;
+//		System.out.println("clicked");
 	}
 
 	@Override
@@ -59,7 +59,8 @@ public class MouseHandler implements MouseMotionListener, MouseListener{
 		pressed = true;
 		held = e.getPoint();
 		
-		clickDif++;
+		
+//		System.out.println("pressed");
 		
 	}
 
@@ -70,7 +71,7 @@ public class MouseHandler implements MouseMotionListener, MouseListener{
 		held = null;
 		clickDif = 0;
 		clicked = false;
-		
+//		System.out.println("releases");
 	}
 
 	@Override

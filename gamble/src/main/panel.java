@@ -65,6 +65,11 @@ public class panel extends JPanel implements Runnable {
 		}
 	}
 	void update() {
+		
+		if(mh.pressed) {
+			mh.clickDif++;
+		}
+		
 		this.repaint();
 		
 		
