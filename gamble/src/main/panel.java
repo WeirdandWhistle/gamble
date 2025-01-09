@@ -7,6 +7,8 @@ import java.awt.Graphics2D;
 
 import javax.swing.JPanel;
 
+import data.SaveLoad;
+
 public class panel extends JPanel implements Runnable {
 	
 	public final int width = 500;
@@ -20,6 +22,7 @@ public class panel extends JPanel implements Runnable {
 	public ui ui = new ui(this);
 	public StateMec sm = new StateMec();
 	public player p = new player(this);
+	public SaveLoad sl = new SaveLoad(this);
 	
 	public panel() {
 		

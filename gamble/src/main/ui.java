@@ -84,6 +84,9 @@ public class ui {
 				button wallet = new button(p.mh, new Rectangle(100,320,300,50), "Wallet");
 				but[2] = wallet;
 				wallet = null;
+				button save = new button(p.mh, new Rectangle(100,380,300,50), "Save");
+				but[3] = save;
+				save = null;
 			}
 			if(currentState == p.sm.walletState) {
 				button backButton = new button(p.mh,new Rectangle(0,0,48,48),null);
@@ -149,6 +152,7 @@ public class ui {
 		this.drawRoundedButton(but[0],this.SansSerif40);
 		this.drawRoundedButton(but[1],this.SansSerif40);
 		this.drawRoundedButton(but[2],this.SansSerif40);
+		this.drawRoundedButton(but[3], SansSerif40);
 		
 		g2d.setFont(SansSerif80);
 		g2d.drawString(p.name + '!',50,100);
@@ -158,6 +162,7 @@ public class ui {
 		if(but[0].clicked()) {}
 		if(but[1].clicked()) {}
 		if(but[2].clicked()) {p.sm.gameState = p.sm.walletState;}
+		if(but[3].clicked()) {p.sl.save();}
 	}
 	public void drawStartState() {
 		
@@ -177,6 +182,7 @@ public class ui {
 		
 		if(but[0].clicked()) {
 			p.sm.gameState = p.sm.menuState;
+			p.sl.load();
 			
 		}
 		
