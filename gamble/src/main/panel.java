@@ -8,6 +8,7 @@ import java.awt.Graphics2D;
 import javax.swing.JPanel;
 
 import data.SaveLoad;
+import market.MarketHandle;
 
 public class panel extends JPanel implements Runnable {
 	
@@ -23,6 +24,7 @@ public class panel extends JPanel implements Runnable {
 	public StateMec sm = new StateMec();
 	public player p = new player(this);
 	public SaveLoad sl = new SaveLoad(this);
+	public MarketHandle market = new MarketHandle(this);
 	
 	public panel() {
 		
@@ -75,12 +77,8 @@ public class panel extends JPanel implements Runnable {
 		
 		this.repaint();
 		
-		
-		
 	}
 	public void paint(Graphics g) {
-		
-		
 		
 	super.paint(g);
 		
@@ -90,7 +88,7 @@ public class panel extends JPanel implements Runnable {
 	
 	ui.renderUI(g2d);
 	
+//	market.update();
 	
-		
 	}
 }
