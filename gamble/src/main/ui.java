@@ -40,7 +40,7 @@ public class ui {
 
 		this.p = p;
 
-		terminal = new Font("Terminal", Font.PLAIN, 20);
+		terminal = new Font("Terminal", Font.PLAIN, 10);
 		SansSerif40 = new Font("SansSerif", Font.PLAIN, 40);
 		SansSerif55 = new Font("SansSerif", Font.PLAIN, 55);
 		SansSerif80 = new Font("SansSerif", Font.PLAIN, 80);
@@ -241,28 +241,22 @@ public class ui {
 
 	}
 
-	public void ReqCusor(int reqCursor, int priority) {
-
-		int[] x = { priority, reqCursor };
-
-		this.CursorReq.add(x);
-
-	}
-
-	public int selectCursor() {
-		return 0;
-	}
-
-	public void updateBackButton(int returnPort) {
+	public boolean updateBackButton(int returnPort) {
 		g2d.drawImage(backIcon, 0, 0, this.backWidth, this.backWidth, null);
+		if (backBut.entered()) {
+			p.requestCursor(Cursor.HAND_CURSOR);
+		}
 		if (backBut.clicked()) {
 			p.sm.gameState = returnPort;
+			return true;
 		}
+		return false;
 	}
 
 	public void drawRoundedButton(button but, Font font) {
 		if (but.entered()) {
 			g2d.setStroke(new BasicStroke(3));
+			p.requestCursor(Cursor.HAND_CURSOR);
 //			this.ReqCusor(Cursor.HAND_CURSOR, 2);
 		} else {
 //			this.ReqCusor(Cursor.DEFAULT_CURSOR, 1);

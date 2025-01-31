@@ -1,17 +1,16 @@
 package main;
 
-//import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-
 public class player {
-	
+
 	panel p;
 	public int money = 100;
-	
+	public int stock = 0;
+	public int token;
+
 	public player(panel p) {
 		this.p = p;
+		token = p.acconut.addAccount("Player", money);
+//		System.out.println("player token: " + token);
 	}
 //	public void load() {
 //		
